@@ -83,8 +83,27 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.dirty.toString">
-            function <span class="apidocSignatureSpan">dirty.</span>toString
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">dirty.</span>Dirty.prototype</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.dirty.Dirty">module dirty.Dirty</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.Dirty">
+            function <span class="apidocSignatureSpan">dirty.</span>Dirty
+            <span class="apidocSignatureSpan">(path)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.super_">
+            function <span class="apidocSignatureSpan">dirty.Dirty.</span>super_
             <span class="apidocSignatureSpan">()</span>
             </a>
 
@@ -92,13 +111,103 @@
 
     </ol></li>
 
-    <li class="apidocModuleLi"><a href="#apidoc.module.dirty.toString">module dirty.toString</a><ol>
+    <li class="apidocModuleLi"><a href="#apidoc.module.dirty.Dirty.prototype">module dirty.Dirty.prototype</a><ol>
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.dirty.toString.toString">
-            function <span class="apidocSignatureSpan">dirty.</span>toString
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype._flush">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>_flush
             <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype._load">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>_load
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype._maybeFlush">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>_maybeFlush
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype._writeDrain">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>_writeDrain
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype.close">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>close
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype.forEach">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>forEach
+            <span class="apidocSignatureSpan">(fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype.get">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>get
+            <span class="apidocSignatureSpan">(key)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype.rm">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>rm
+            <span class="apidocSignatureSpan">(key, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype.set">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>set
+            <span class="apidocSignatureSpan">(key, val, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype.size">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>size
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.dirty.Dirty.prototype.update">
+            function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>update
+            <span class="apidocSignatureSpan">(key, updater, cb)</span>
             </a>
 
         </li>
@@ -203,15 +312,68 @@ The path of the dirty database.
 
 
 
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.dirty.Dirty" id="apidoc.module.dirty.Dirty">module dirty.Dirty</a></h1>
+
+
     <h2>
-        <a href="#apidoc.element.dirty.toString" id="apidoc.element.dirty.toString">
-        function <span class="apidocSignatureSpan">dirty.</span>toString
+        <a href="#apidoc.element.dirty.Dirty.Dirty" id="apidoc.element.dirty.Dirty.Dirty">
+        function <span class="apidocSignatureSpan">dirty.</span>Dirty
+        <span class="apidocSignatureSpan">(path)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Dirty = function (path) {
+  if (!(this instanceof Dirty)) return new Dirty(path);
+
+  EventEmitter.call(this);
+
+  this.path = path;
+  this.writeBundle = 1000;
+
+  this._docs = {};
+  this._keys = [];
+  this._queue = [];
+  this._readStream = null;
+  this._writeStream = null;
+  this._fdRead = null;
+  this._fdWrite = null;
+
+  this._load();
+  return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Creates a new dirty database. If `path` does not exist yet, it is created. You
+can also omit the `path` if you don't want disk persistence (useful for testing).
+
+The constructor can be invoked in multiple ways:
+
+```javascript
+require('dirty')('my.db');
+require('dirty').<span class="apidocCodeKeywordSpan">Dirty</span>('my.db');
+new (require('dirty'))('my.db');
+new (require('dirty').Dirty)('my.db');
+```
+### dirty.path
+
+The path of the dirty database.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.super_" id="apidoc.element.dirty.Dirty.super_">
+        function <span class="apidocSignatureSpan">dirty.Dirty.</span>super_
         <span class="apidocSignatureSpan">()</span>
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return text;
+    <li>description and source-code<pre class="apidocCodePre">function EventEmitter() {
+  EventEmitter.init.call(this);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -220,18 +382,536 @@ The path of the dirty database.
 </div>
 
 <div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.dirty.toString" id="apidoc.module.dirty.toString">module dirty.toString</a></h1>
+<h1><a href="#apidoc.module.dirty.Dirty.prototype" id="apidoc.module.dirty.Dirty.prototype">module dirty.Dirty.prototype</a></h1>
 
 
     <h2>
-        <a href="#apidoc.element.dirty.toString.toString" id="apidoc.element.dirty.toString.toString">
-        function <span class="apidocSignatureSpan">dirty.</span>toString
+        <a href="#apidoc.element.dirty.Dirty.prototype._flush" id="apidoc.element.dirty.Dirty.prototype._flush">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>_flush
         <span class="apidocSignatureSpan">()</span>
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>description and source-code<pre class="apidocCodePre">_flush = function () {
+  var self = this,
+      length = this._queue.length,
+      bundleLength = 0,
+      bundleStr = '',
+      key,
+      cbs = [];
+
+  this.flushing = true;
+
+  function callbacks(err, cbs) {
+    while (cbs.length) {
+      cbs.shift()(err);
+    }
+  }
+
+  for (var i = 0; i &lt; length; i++) {
+    key = this._queue[i];
+    if (Array.isArray(key)) {
+      cbs.push(key[1]);
+      key = key[0];
+    }
+
+    bundleStr += JSON.stringify({key: key, val: this._docs[key]})+'\n';
+    bundleLength++;
+
+    if (bundleLength &lt; this.writeBundle &amp;&amp; i &lt; length - 1) {
+      continue;
+    }
+
+    (function(cbs) {
+      var isDrained;
+
+      if (!self.path) {
+        process.nextTick(function() {
+          callbacks(null, cbs);
+          self._writeDrain();
+        });
+        return;
+      }
+
+      isDrained = self._writeStream.write(bundleStr, function(err) {
+        if (isDrained) {
+          self._writeDrain();
+        }
+
+        if (!cbs.length &amp;&amp; err) {
+          self.emit('error', err);
+          return;
+        }
+
+        callbacks(err, cbs);
+      });
+
+    })(cbs);
+
+    bundleStr = '';
+    bundleLength = 0;
+    cbs = [];
+  }
+
+  this._queue = [];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+Dirty.prototype._maybeFlush = function() {
+if (this.flushing || !this._queue.length) {
+  return;
+}
+
+this.<span class="apidocCodeKeywordSpan">_flush</span>();
+};
+
+Dirty.prototype._flush = function() {
+var self = this,
+    length = this._queue.length,
+    bundleLength = 0,
+    bundleStr = '',
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype._load" id="apidoc.element.dirty.Dirty.prototype._load">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>_load
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_load = function () {
+  var self = this, buffer = '', length = 0;
+
+  if (!this.path) {
+    process.nextTick(function() {
+      self.emit('load', 0);
+    });
+    return;
+  }
+
+  this._readStream = fs.createReadStream(this.path, {
+    encoding: 'utf-8',
+    flags: 'r'
+  });
+
+  this._readStream
+    .on('error', function(err) {
+      if (err.code === 'ENOENT') {
+        self.emit('load', 0);
+        return;
+      }
+
+      self.emit('error', err);
+    })
+    .on('data', function(chunk) {
+      buffer += chunk;
+      if (chunk.lastIndexOf('\n') == -1) return;
+      var arr = buffer.split('\n');
+      buffer = arr.pop();
+      arr.forEach(function(rowStr) {
+        if (!rowStr) {
+          self.emit('error', new Error('Empty lines never appear in a healthy database'));
+          return;
+        }
+
+        var row;
+        try {
+          row = JSON.parse(rowStr);
+          if (!('key' in row)) {
+            throw new Error();
+          }
+        } catch (e) {
+          self.emit('error', new Error('Could not load corrupted row: '+rowStr));
+          return '';
+        }
+
+        if (row.val === undefined) {
+          if (row.key in self._docs) {
+            length--;
+          }
+          delete self._docs[row.key];
+        } else {
+          if (!(row.key in self._docs)) {
+            if(self._keys.indexOf(row.key) === -1){
+            	self._keys.push(row.key);
+            }
+            length++;
+          }
+          self._docs[row.key] = row.val;
+        }
+        return '';
+      });
+    })
+    .on('end', function() {
+      if (buffer.length) {
+        self.emit('error', new Error('Corrupted row at the end of the db: '+buffer));
+      }
+      self.emit('load', length);
+    })
+    .on('open', function(fd) {
+    	self._fdRead = fd;
+    });
+
+  this._writeStream = fs.createWriteStream(this.path, {
+    encoding: 'utf-8',
+    flags: 'a'
+  });
+
+  this._writeStream.on('drain', function() {
+    self._writeDrain();
+  });
+
+  this._writeStream.on('open', function(fd) {
+	  self._fdWrite = fd;
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  this._keys = [];
+  this._queue = [];
+  this._readStream = null;
+  this._writeStream = null;
+  this._fdRead = null;
+  this._fdWrite = null;
+
+  this.<span class="apidocCodeKeywordSpan">_load</span>();
+  return this;
+};
+
+util.inherits(Dirty, EventEmitter);
+Dirty.Dirty = Dirty;
+module.exports = Dirty;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype._maybeFlush" id="apidoc.element.dirty.Dirty.prototype._maybeFlush">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>_maybeFlush
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_maybeFlush = function () {
+  if (this.flushing || !this._queue.length) {
+    return;
+  }
+
+  this._flush();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+  if (!cb) {
+    this._queue.push(key);
+  } else {
+    this._queue.push([key, cb]);
+  }
+
+  this.<span class="apidocCodeKeywordSpan">_maybeFlush</span>();
+};
+
+/**
+* Get the value stored at a key in the database
+* This is synchronous since a cache is maintained in-memory
+*/
+Dirty.prototype.get = function(key) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype._writeDrain" id="apidoc.element.dirty.Dirty.prototype._writeDrain">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>_writeDrain
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_writeDrain = function () {
+  this.flushing = false;
+
+  if (!this._queue.length) {
+    this.emit('drain');
+  } else {
+    this._maybeFlush();
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+  this._writeStream = fs.createWriteStream(this.path, {
+    encoding: 'utf-8',
+    flags: 'a'
+  });
+
+  this._writeStream.on('drain', function() {
+    self.<span class="apidocCodeKeywordSpan">_writeDrain</span>();
+  });
+
+  this._writeStream.on('open', function(fd) {
+	  self._fdWrite = fd;
+  });
+};
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype.close" id="apidoc.element.dirty.Dirty.prototype.close">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>close
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">close = function () {
+
+  if (!this.path) {
+    return;
+  }
+
+  this._maybeFlush();
+
+  var self = this;
+  if (this._fdRead) {
+    fs.close(this._fdRead, function() {
+      self.emit('read_close');
+    });
+  }
+  if (this._fdWrite) {
+    fs.close(this._fdWrite, function() {
+      self.emit('write_close');
+    });
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+Calls the given `fn` function for every document in the database. The passed
+arguments are `key` and `val`. You can return `false` to abort a query (useful
+if you are only interested in a limited number of records).
+
+This function is blocking and runs at ~4 Mhz.
+
+### dirty.<span class="apidocCodeKeywordSpan">close</span>()
+
+Close the dirty db file handle.
+
+### dirty event: 'load' (length)
+
+Emitted once the database file has finished loading. It is not safe to access
+records before this event fires. Writing records however should be fine.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype.forEach" id="apidoc.element.dirty.Dirty.prototype.forEach">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>forEach
+        <span class="apidocSignatureSpan">(fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">forEach = function (fn) {
+
+  for (var i = 0; i &lt; this._keys.length; i++) {
+    var key = this._keys[i];
+    if (fn(key, this._docs[key]) === false) {
+      break;
+    }
+  }
+
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  db.set('john', {eyes: 'blue'});
+  console.log('Added john, he has %s eyes.', db.get('john').eyes);
+
+  db.set('bob', {eyes: 'brown'}, function() {
+    console.log('User bob is now saved on disk.')
+  });
+
+  db.<span class="apidocCodeKeywordSpan">forEach</span>(function(key, val) {
+    console.log('Found key: %s, val: %j', key, val);
+  });
+});
+
+db.on('drain', function() {
+  console.log('All records are saved on disk now.');
+});
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype.get" id="apidoc.element.dirty.Dirty.prototype.get">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>get
+        <span class="apidocSignatureSpan">(key)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">get = function (key) {
+  return this._docs[key];
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```javascript
+  var dirty = require('dirty');
+  var db = dirty('user.db');
+
+  db.on('load', function() {
+db.set('john', {eyes: 'blue'});
+console.log('Added john, he has %s eyes.', db.<span class="apidocCodeKeywordSpan">get</span>('john').eyes);
+
+db.set('bob', {eyes: 'brown'}, function() {
+  console.log('User bob is now saved on disk.')
+});
+
+db.forEach(function(key, val) {
+  console.log('Found key: %s, val: %j', key, val);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype.rm" id="apidoc.element.dirty.Dirty.prototype.rm">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>rm
+        <span class="apidocSignatureSpan">(key, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">rm = function (key, cb) {
+  this.set(key, undefined, cb);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+`val` can be any JSON-serializable type, it does not have to be an object.
+
+### dirty.get(key)
+
+Retrieves the value for the given `key`.
+
+### dirty.<span class="apidocCodeKeywordSpan">rm</span>(key, cb)
+
+Removes the record with the given `key`. This is identical to setting the `key`'s value
+to `undefined`.
+
+### dirty.update(key, updater, [cb])
+
+Updates the record of the given `key` with the given `updater` which is a function
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype.set" id="apidoc.element.dirty.Dirty.prototype.set">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>set
+        <span class="apidocSignatureSpan">(key, val, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">set = function (key, val, cb) {
+  if (val === undefined) {
+    this._keys.splice(this._keys.indexOf(key), 1);
+    delete this._docs[key];
+  } else {
+    if (this._keys.indexOf(key) === -1) {
+      this._keys.push(key);
+    }
+    this._docs[key] = val;
+  }
+
+  if (!cb) {
+    this._queue.push(key);
+  } else {
+    this._queue.push([key, cb]);
+  }
+
+  this._maybeFlush();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+## Tutorial
+
+```javascript
+  var dirty = require('dirty');
+  var db = dirty('user.db');
+
+  db.on('load', function() {
+db.<span class="apidocCodeKeywordSpan">set</span>('john', {eyes: 'blue'});
+console.log('Added john, he has %s eyes.', db.get('john').eyes);
+
+db.set('bob', {eyes: 'brown'}, function() {
+  console.log('User bob is now saved on disk.')
+});
+
+db.forEach(function(key, val) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype.size" id="apidoc.element.dirty.Dirty.prototype.size">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>size
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">size = function () {
+  return this._keys.length;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var db = dirty();
+
+db.set(1, {test: 'foo'});
+db.set(2, {test: 'bar'});
+db.set(3, {test: 'foobar'});
+
+it('should be equal to number of keys set', function() {
+  assert.equal(db.<span class="apidocCodeKeywordSpan">size</span>(), 3);
+});
+});
+
+describe('test-chaining-of-constructor', function() {
+var file = config.TMP_PATH + '/chain.dirty';
+fs.existsSync(file) &amp;&amp; fs.unlinkSync(file);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.dirty.Dirty.prototype.update" id="apidoc.element.dirty.Dirty.prototype.update">
+        function <span class="apidocSignatureSpan">dirty.Dirty.prototype.</span>update
+        <span class="apidocSignatureSpan">(key, updater, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">update = function (key, updater, cb) {
+  this.set(key, updater(this.get(key)), cb);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Retrieves the value for the given `key`.
+
+### dirty.rm(key, cb)
+
+Removes the record with the given `key`. This is identical to setting the `key`'s value
+to `undefined`.
+
+### dirty.<span class="apidocCodeKeywordSpan">update</span>(key, updater, [cb])
+
+Updates the record of the given `key` with the given `updater` which is a function
+that is passed the current value of the key.
+
+The optional `cb` callback is passed to `dirty.set`.
+
+### dirty.forEach(fn)
+...</pre></li>
     </ul>
 
 
