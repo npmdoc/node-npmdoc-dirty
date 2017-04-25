@@ -1,4 +1,7 @@
-# api documentation for  [dirty (v1.1.0)](https://github.com/felixge/node-dirty#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-dirty.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-dirty) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-dirty.svg)](https://travis-ci.org/npmdoc/node-npmdoc-dirty)
+# npmdoc-dirty
+
+#### basic api documentation for  [dirty (v1.1.0)](https://github.com/felixge/node-dirty#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-dirty.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-dirty) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-dirty.svg)](https://travis-ci.org/npmdoc/node-npmdoc-dirty)
+
 #### A tiny & fast key value store with append-only disk log. Ideal for apps with < 1 million records.
 
 [![NPM](https://nodei.co/npm/dirty.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/dirty)
@@ -61,7 +64,8 @@
     "scripts": {
         "test": "mocha test/test-*.js -R list"
     },
-    "version": "1.1.0"
+    "version": "1.1.0",
+    "bin": {}
 }
 ```
 
